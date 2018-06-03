@@ -1,0 +1,88 @@
+$ blastp -version 
+	blastp: 2.7.1+, build Oct 18 2017 20:40:57 
+	package: blast 2.7.1, build Oct 18 2017 20:40:57
+		#I think this tells you which version of blast you have/sets up blast?
+	
+	# Now you need to download a fasta sequence of a protein. The following lines are from user knmkr's "use_blast_from_command-line.md" gist
+
+$ curl -O ftp://ftp.ncbi.nih.gov/blast/db/FASTA/swissprot.gz
+$ gunzip swissprot.gz
+$ head swissprot
+
+	# This pulls up something that looks like this:
+	# >F4I312.2 RecName: Full=Vacuolar sorting protein 3
+MSKSRAVVELTARFDLGGDDKIRALSLSPISDSQTLVYLGTYSGSLILLSLDTLTNTVSRLASVSLSPSPVESIFVLGEE
+RGRVLALCNGYLFLLDSLLSQPAKRLGGLLKGINVIAKRVRGRDSSSTDLLPSEISTDSSSSKKFLQLLGAGNLVSDVRG
+NDSRHERVQQGHYVFAVAIGERMLLIELQCAEKEGLSGSFVVLKEILGIGGIKTLVWLDDYVIAGTVKGYSLISCVTGLS
+GVIFTLPDVSGPPLLKLLCKEWKVLLLVDNVGVVVDTNGQPIGGSLVFRRRPDSVGELSFYLVTVGDGKMEIHQKKSGAC
+VQSVSFGPQGCGPSLLAADEAGDGNLLVVTTLSKLIFYRRVPYEEQIKDLLRKKRYRETISLVEELDSQGEISKDMLSFL
+HAQIGYLLLFDLRFEEAVNQFLKSEKMEPSEVFPFIMRDPNRWSLVVPRNRYWGLHPPPAPFEDVVDNGLMAIQRANFLR
+KAGMDTPVDEEFFSDPPSRADLLDSAIKNITRYLEISREKGLTLPVREGIDTLLMLLYRALNRVEDMENLASSGNNCVVE
+ELETLLTESGHLRTLAFLYATKGMGAKALAIWRLFTKNYSSGLWQDSDDLVPYLHDNELIRLSGKEAAAAEAARILEEPC
+DPELALQHLSWIADVNPLFAIQVLTSDKRTEELSPEQVIQAIDPKKVEIIQRYFQWLIEERDYTDPQLHTSYALSLARSA
+
+$ ls /Users/[insert user name here]/db/blast/
+	swissprot.phd	swissprot.phi	swissprot.phr	swissprot.pin	swissprot.pog	swissprot.psd	swissprot.psi	swissprot.psq
+
+	# Following code compares a saved sequence to the swissprot sequence
+	# The saved sequence must be in the folder /Users/[insert user name here]/
+	
+$ cat test.fa
+	>test
+	GGG
+	
+$ blastp -query test.fa -db /Users/Emma/db/blast/swissprot
+	BLASTP 2.7.1+
+
+
+	Reference: Stephen F. Altschul, Thomas L. Madden, Alejandro A.
+	Schaffer, Jinghui Zhang, Zheng Zhang, Webb Miller, and David J.
+	Lipman (1997), "Gapped BLAST and PSI-BLAST: a new generation of
+	protein database search programs", Nucleic Acids Res. 25:3389-3402.
+
+
+	Reference for composition-based statistics: Alejandro A. Schaffer,
+	L. Aravind, Thomas L. Madden, Sergei Shavirin, John L. Spouge, Yuri
+	I. Wolf, Eugene V. Koonin, and Stephen F. Altschul (2001),
+	"Improving the accuracy of PSI-BLAST protein database searches with
+	composition-based statistics and other refinements", Nucleic Acids
+	Res. 29:2994-3005.
+
+
+
+	Database: swissprot.fa
+           		469,813 sequences; 177,141,806 total letters
+
+
+
+	Query= test
+
+	Length=3
+
+
+	***** No hits found *****
+
+
+
+	Lambda      K        H        a         alpha
+   		0.304    0.171    0.587    0.792     4.96 
+
+	Gapped
+	Lambda      K        H        a         alpha    sigma
+  		 0.267   0.0410    0.140     1.90     42.6     43.6 
+
+	Effective search space used: 531425418
+
+
+ 	Database: swissprot.fa
+    	Posted date:  Jun 3, 2018  3:20 PM
+  	Number of letters in database: 177,141,806
+  	Number of sequences in database:  469,813
+
+
+
+	Matrix: BLOSUM62
+	Gap Penalties: Existence: 11, Extension: 1
+	Neighboring words threshold: 11
+	Window for multiple hits: 40
+	
